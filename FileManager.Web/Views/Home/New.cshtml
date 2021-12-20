@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "New";
+    Layout = "_Layout";
+}
+<div class="card col-8 mx-auto">
+    <div class="card-header">
+        <div class="card-title">Add File</div>
+    </div>
+    <div class="card-body">
+        <form asp-action="New" asp-controller="Home" method="post" enctype="multipart/form-data">
+            <div class="from-group">
+                <label id="Name"></label>
+                <input type="text" name="Name"  id="name" class="form-control">
+            </div>
+            <div class="mt-3">
+                <input class="form-control" type="file" name="file" id="formFile">
+            </div>
+            <div class="btn-group mt-3">
+                <button type="submit" class="btn btn-primary btn-sm">Upload</button>
+            </div>
+        </form>
+    </div>
+</div>
