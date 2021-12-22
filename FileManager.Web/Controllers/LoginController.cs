@@ -54,8 +54,8 @@ namespace FileManager.Web.Controllers
         {
             try
             {
-                var userDto = new UserDto(vm.Name, vm.Gender, vm.Email, vm.Password, vm.Address, vm.Phone);
-                var user = await _userService.CreateUser(userDto);
+                var userDto = new UserDto(vm.Name, vm.Gender, vm.Email, vm.Password, vm.Address, vm.Phone); 
+                await _userService.CreateUser(userDto);
                 _notyfService.Success("Success");
                 return RedirectToAction(nameof(Index));
             }

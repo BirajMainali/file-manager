@@ -2,7 +2,7 @@
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 
-namespace FileManager.Extension
+namespace FileManager.Web.Extension
 {
     public static class FileValidatorExtension
     {

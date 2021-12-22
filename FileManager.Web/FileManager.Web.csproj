@@ -25,5 +25,4 @@
       <ProjectReference Include="..\FileManager.Application\FileManager.Application.csproj" />
       <ProjectReference Include="..\FileManager.Infrastructure\FileManager.Infrastructure.csproj" />
     </ItemGroup>
-
 </Project>

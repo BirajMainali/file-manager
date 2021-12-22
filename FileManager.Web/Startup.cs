@@ -2,7 +2,7 @@ using System.IO;
 using AspNetCoreHero.ToastNotification.Extensions;
 using FileManager.Application.Constants;
 using FileManager.Infrastructure.Data;
-using FileManager.Web.Provider;
+using FileManager.Web.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;

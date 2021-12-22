@@ -2,7 +2,7 @@
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 
-namespace FileManager.Web.Provider
+namespace FileManager.Web.Providers
 {
     public class CustomFileProvider : IFileProvider
     {
