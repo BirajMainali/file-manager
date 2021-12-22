@@ -2,6 +2,7 @@
 {
     public class FileRecordInfo : BaseEntity
     {
+        public string Extension { get; protected set; }
         public string Name { get; protected set; }
         public string ContentType { get; protected set; }
         public string Identity { get; protected set; }
@@ -14,8 +15,9 @@
         {
         }
 
-        public FileRecordInfo(string identity, User.User user, string name, string contentType, string path, double size)
+        public FileRecordInfo(string extension,string identity, User.User user, string name, string contentType, string path, double size)
         {
+            Extension = extension;
             Identity = identity;
             User = user;
             Name = name;

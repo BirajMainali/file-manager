@@ -21,9 +21,10 @@ namespace FileManager.Application.Helper
             return new FileRecordVo()
             {
                 Identity = encryptedFileName,
-                Path = filePath,
+                Path = Root,
                 Size = file.Length / 1024,
                 ContentType = file.ContentType,
+                Extension = extension
             };
         }
 
