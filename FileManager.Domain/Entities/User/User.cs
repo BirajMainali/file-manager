@@ -1,5 +1,4 @@
-﻿using Base.Entities;
-using Base.Entities.Interfaces;
+﻿using Base.Entities.Interfaces;
 
 namespace FileManager.Domain.Entities.User
 {

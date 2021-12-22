@@ -1,10 +1,13 @@
 ﻿using AspNetCoreHero.ToastNotification;
-using FileManager.Helpers.Interfaces;
+using FileManager.Application.Helper;
+using FileManager.Application.Helper.Interfaces;
+using FileManager.Application.Manager.Interfaces;
 using FileManager.Infrastructure;
 using FileManager.Infrastructure.Data;
-using FileManager.Web.Helpers;
 using FileManager.Web.Manager;
 using FileManager.Web.Manager.Interfaces;
+using FileManager.Web.Providers;
+using FileManager.Web.Providers.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,9 +21,10 @@ namespace FileManager.Web
             IConfiguration configuration)
         {
             services.UseAppDiConfiguration();
-            services.AddScoped<IFileManager, Manager.FileManager>();
+            services.AddScoped<IFileManager, Application.Manager.FileManager>();
             services.AddScoped<IFileHelper, FileHelper>();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+            services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
             services.AddHttpContextAccessor();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

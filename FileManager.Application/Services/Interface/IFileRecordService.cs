@@ -1,5 +1,5 @@
 ﻿using FileManager.Domain.Entities;
-using FileManager.ValueObject;
+using FileManager.Domain.ValueObject;
 
 namespace FileManager.Application.Services.Interface
 {

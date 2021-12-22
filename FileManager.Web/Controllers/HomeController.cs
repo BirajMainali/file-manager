@@ -3,11 +3,15 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using FileManager.Application.Manager.Interfaces;
 using FileManager.Application.Repository.Interfaces;
+using FileManager.Domain.Dto;
 using FileManager.Models;
 using FileManager.Web.Extension;
 using FileManager.Web.Manager;
 using FileManager.Web.Manager.Interfaces;
+using FileManager.Web.Providers.Interfaces;
+using FileManager.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,26 +22,29 @@ namespace FileManager.Web.Controllers
         private readonly IFileManager _fileManager;
         private readonly IFileRecordInfoRepository _recordRepository;
         private readonly INotyfService _notyf;
+        private readonly IUserRepository _userRepository;
 
-        public HomeController(IFileManager fileManager, IFileRecordInfoRepository recordRepository, INotyfService notyf)
+        public HomeController(IFileManager fileManager, IFileRecordInfoRepository recordRepository, INotyfService notyf, IUserRepository userRepository)
         {
             _fileManager = fileManager;
             _recordRepository = recordRepository;
             _notyf = notyf;
+            _userRepository = userRepository;
         }
 
         public async Task<IActionResult> Index()
             => View(await _recordRepository.GetAllAsync());
 
-        public IActionResult New() => View();
+        public IActionResult New() => View(new FileUploadVm());
 
         [HttpPost]
-        public async Task<IActionResult> New(IFormFile file, string name)
+        public async Task<IActionResult> New(FileUploadVm vm)
         {
             try
             {
-                if (file.IsFile()) throw new Exception("Invalid file type.");
-                await _fileManager.SaveFileInfo(file, name);
+                if (vm.File.IsFile()) throw new Exception("Invalid file type.");
+                var user = await _userRepository.FindAsync(1); // Remove this hard coded.
+                await _fileManager.SaveFileInfo(new FileInfoRecordDto(user,vm.FileName,vm.File,vm.Description));
                 _notyf.Success("File Added");
                 return RedirectToAction(nameof(Index));
             }

@@ -1,12 +1,11 @@
-﻿using System.Threading.Tasks;
-using FileManager.ValueObject;
+﻿using FileManager.Domain.ValueObject;
 using Microsoft.AspNetCore.Http;
 
-namespace FileManager.Helpers.Interfaces
+namespace FileManager.Application.Helper.Interfaces
 {
     public interface IFileHelper
     {
-        Task<FileRecordVo> SaveImage(IFormFile file, string name);
+        Task<FileRecordVo> SaveImage(IFormFile file);
         void RemoveImage(string identity);
         void EnsureDirectoryIsCreated(string directory);
     }

@@ -1,12 +1,12 @@
-﻿using System.Threading.Tasks;
-using System.Transactions;
+﻿using System.Transactions;
+using FileManager.Application.Helper.Interfaces;
+using FileManager.Application.Manager.Interfaces;
 using FileManager.Application.Services.Interface;
+using FileManager.Domain.Dto;
 using FileManager.Domain.Entities;
-using FileManager.Helpers.Interfaces;
-using FileManager.Web.Manager.Interfaces;
-using Microsoft.AspNetCore.Http;
+using FileManager.Domain.ValueObject;
 
-namespace FileManager.Web.Manager
+namespace FileManager.Application.Manager
 {
     public class FileManager : IFileManager
     {
@@ -19,11 +19,12 @@ namespace FileManager.Web.Manager
             _fileRecordService = fileRecordService;
         }
 
-        public async Task SaveFileInfo(IFormFile file, string fileName)
+        public async Task SaveFileInfo(FileInfoRecordDto dto)
         {
             using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-            var fileInfo = await _fileHelper.SaveImage(file, fileName);
-            await _fileRecordService.RecordFileLog(fileInfo);
+            var recordVo = await _fileHelper.SaveImage(dto.File);
+            ReadyRecordInfo(dto, recordVo);
+            await _fileRecordService.RecordFileLog(recordVo);
             tsc.Complete();
         }
 
@@ -33,6 +34,14 @@ namespace FileManager.Web.Manager
             await _fileRecordService.RemoveFileRecord(fileRecord);
             _fileHelper.RemoveImage(fileRecord.Name);
             tsc.Complete();
+        }
+
+        private FileRecordVo ReadyRecordInfo(FileInfoRecordDto dto, FileRecordVo vo)
+        {
+            vo.User = dto.User;
+            vo.FileName = dto.FileName;
+            vo.Description = dto.Description;
+            return vo;
         }
     }
 }
