@@ -28,7 +28,7 @@ namespace FileManager.Domain.Entities
             Size = size;
         }
 
-        public User.User RecUser { get; set; }
+        public virtual User.User RecUser { get; set; }
         public long RecUserId { get; set; }
     }
 }

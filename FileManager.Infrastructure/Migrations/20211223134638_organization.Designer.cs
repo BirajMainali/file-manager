@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FileManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211223130031_Organization user")]
-    partial class Organizationuser
+    [Migration("20211223134638_organization")]
+    partial class organization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,6 +47,9 @@ namespace FileManager.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("OrganizationId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Path")
                         .IsRequired()
                         .HasColumnType("text");
@@ -60,15 +63,17 @@ namespace FileManager.Infrastructure.Migrations
                     b.Property<char>("RecStatus")
                         .HasColumnType("character(1)");
 
+                    b.Property<long>("RecUserId")
+                        .HasColumnType("bigint");
+
                     b.Property<double>("Size")
                         .HasColumnType("double precision");
 
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("RecUserId");
 
                     b.ToTable("file_record_info");
                 });
@@ -128,7 +133,7 @@ namespace FileManager.Infrastructure.Migrations
                     b.ToTable("organization");
                 });
 
-            modelBuilder.Entity("FileManager.Domain.Entities.RecUser.RecUser", b =>
+            modelBuilder.Entity("FileManager.Domain.Entities.User.User", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,6 +162,9 @@ namespace FileManager.Infrastructure.Migrations
                     b.Property<long>("OrganizationId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("ParentId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
@@ -178,21 +186,12 @@ namespace FileManager.Infrastructure.Migrations
 
                     b.HasIndex("OrganizationId");
 
+                    b.HasIndex("ParentId");
+
                     b.ToTable("user", "auth");
                 });
 
             modelBuilder.Entity("FileManager.Domain.Entities.FileRecordInfo", b =>
-                {
-                    b.HasOne("FileManager.Domain.Entities.RecUser.RecUser", "RecUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("RecUser");
-                });
-
-            modelBuilder.Entity("FileManager.Domain.Entities.RecUser.RecUser", b =>
                 {
                     b.HasOne("FileManager.Domain.Entities.Organization", "Organization")
                         .WithMany()
@@ -200,7 +199,37 @@ namespace FileManager.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FileManager.Domain.Entities.User.User", "RecUser")
+                        .WithMany()
+                        .HasForeignKey("RecUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Organization");
+
+                    b.Navigation("RecUser");
+                });
+
+            modelBuilder.Entity("FileManager.Domain.Entities.User.User", b =>
+                {
+                    b.HasOne("FileManager.Domain.Entities.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FileManager.Domain.Entities.User.User", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId");
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("FileManager.Domain.Entities.User.User", b =>
+                {
+                    b.Navigation("Children");
                 });
 #pragma warning restore 612, 618
         }
