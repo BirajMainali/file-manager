@@ -8,8 +8,6 @@ namespace FileManager.Domain.Entities
         public string Name { get; protected set; }
         public string ContentType { get; protected set; }
         public string Identity { get; protected set; }
-        public virtual User.User User { get; protected set; }
-        public long UserId { get; set; }
         public virtual Organization Organization { get; set; }
         public long OrganizationId { get; set; }
         public string Path { get; protected set; }
@@ -19,12 +17,11 @@ namespace FileManager.Domain.Entities
         {
         }
 
-        public FileRecordInfo(string extension, string identity, User.User user, string name, string contentType,
+        public FileRecordInfo(string extension, string identity, Organization organization, string name, string contentType,
             string path, double size)
         {
             Extension = extension;
             Identity = identity;
-            RecUser = user;
             Name = name;
             ContentType = contentType;
             Path = path;

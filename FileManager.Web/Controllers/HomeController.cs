@@ -8,6 +8,7 @@ using FileManager.Application.Repository.Interfaces;
 using FileManager.Domain.Dto;
 using FileManager.Models;
 using FileManager.Web.Extension;
+using FileManager.Web.Providers.Interfaces;
 using FileManager.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,14 +19,14 @@ namespace FileManager.Web.Controllers
         private readonly IFileManager _fileManager;
         private readonly IFileRecordInfoRepository _recordRepository;
         private readonly INotyfService _notyf;
-        private readonly IUserRepository _userRepository;
+        private readonly ICurrentUserProvider _currentUserProvider;
 
-        public HomeController(IFileManager fileManager, IFileRecordInfoRepository recordRepository, INotyfService notyf, IUserRepository userRepository)
+        public HomeController(IFileManager fileManager, IFileRecordInfoRepository recordRepository, INotyfService notyf, ICurrentUserProvider currentUserProvider)
         {
             _fileManager = fileManager;
             _recordRepository = recordRepository;
             _notyf = notyf;
-            _userRepository = userRepository;
+            _currentUserProvider = currentUserProvider;
         }
 
         public async Task<IActionResult> Index()
@@ -39,8 +40,8 @@ namespace FileManager.Web.Controllers
             try
             {
                 if (vm.File.IsFile()) throw new Exception("Invalid file type.");
-                var user = await _userRepository.FindAsync(1); // Remove this hard coded.
-                await _fileManager.SaveFileInfo(new FileInfoRecordDto(user,user.Organization,vm.FileName,vm.File,vm.Description));
+                var organization = await _currentUserProvider.GetCurrentOrganization();
+                await _fileManager.SaveFileInfo(new FileInfoRecordDto(organization,vm.FileName,vm.File,vm.Description));
                 _notyf.Success("File Added");
                 return RedirectToAction(nameof(Index));
             }

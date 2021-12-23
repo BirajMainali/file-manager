@@ -38,7 +38,7 @@ namespace FileManager.Application.Manager
 
         private FileRecordVo ReadyRecordInfo(FileInfoRecordDto dto, FileRecordVo vo)
         {
-            vo.User = dto.User;
+            vo.Organization = dto.Organization;
             vo.FileName = dto.FileName;
             vo.Description = dto.Description;
             return vo;
