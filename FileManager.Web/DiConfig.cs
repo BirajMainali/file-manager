@@ -1,7 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification;
 using FileManager.Application.Helper;
 using FileManager.Application.Helper.Interfaces;
-using FileManager.Application.Manager.Interfaces;
 using FileManager.Infrastructure;
 using FileManager.Infrastructure.Data;
 using FileManager.Web.Manager;
@@ -21,7 +20,6 @@ namespace FileManager.Web
             IConfiguration configuration)
         {
             services.UseAppDiConfiguration();
-            services.AddScoped<IFileManager, Application.Manager.FileManager>();
             services.AddScoped<IFileHelper, FileHelper>();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();

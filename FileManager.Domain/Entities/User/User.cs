@@ -1,4 +1,5 @@
 ﻿using Base.Entities.Interfaces;
+using FileManager.Domain.Entities.Interfaces;
 
 namespace FileManager.Domain.Entities.User
 {
@@ -11,13 +12,18 @@ namespace FileManager.Domain.Entities.User
         public string Password { get; protected set; }
         public string Address { get; protected set; }
         public string Phone { get; protected set; }
+        public virtual Organization Organization { get; protected set; }
+        public long OrganizationId { get; set; }
 
         public User()
         {
         }
 
-        public User(string name, string gender, string email, string password, string address, string phone)
-            => Copy(name, gender, email, password, address, phone);
+        public User(Organization organization, string name, string gender, string email, string password, string address, string phone)
+        {
+            Organization = organization;
+            Copy(name, gender, email, password, address, phone);
+        }
 
         public void Update(string name, string gender, string email, string password, string address, string phone)
             => Copy(name, gender, email, password, address, phone);

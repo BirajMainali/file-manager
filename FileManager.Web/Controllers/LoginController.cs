@@ -3,11 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using FileManager.Application.Services.Interface;
+using FileManager.Domain.Dto;
 using FileManager.Web.Manager.Interfaces;
 using FileManager.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using User.Dto;
 
 namespace FileManager.Web.Controllers
 {
@@ -54,7 +54,15 @@ namespace FileManager.Web.Controllers
         {
             try
             {
-                var userDto = new UserDto(vm.Name, vm.Gender, vm.Email, vm.Password, vm.Address, vm.Phone); 
+                var userDto = new UserDto()
+                {
+                    Address = vm.Address,
+                    Email = vm.Email,
+                    Gender = vm.Gender,
+                    Name = vm.Name,
+                    Password = vm.Password,
+                    Phone = vm.Phone
+                };
                 await _userService.CreateUser(userDto);
                 _notyfService.Success("Success");
                 return RedirectToAction(nameof(Index));

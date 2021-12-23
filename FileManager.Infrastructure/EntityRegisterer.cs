@@ -9,6 +9,7 @@ namespace FileManager.Infrastructure
         {
             modelBuilder.Entity<Domain.Entities.User.User>().ToTable("user","auth");
             modelBuilder.Entity<FileRecordInfo>().ToTable("file_record_info");
+            modelBuilder.Entity<Organization>().ToTable("organization");
             return modelBuilder;
         }
     }

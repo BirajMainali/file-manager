@@ -1,4 +1,4 @@
-﻿namespace Base.Entities.Interfaces
+﻿namespace FileManager.Domain.Entities.Interfaces
 {
     public interface ISoftDelete
     {

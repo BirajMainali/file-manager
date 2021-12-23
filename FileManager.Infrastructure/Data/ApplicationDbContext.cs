@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Base.Entities.Interfaces;
 using FileManager.Domain.Entities;
+using FileManager.Domain.Entities.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace FileManager.Infrastructure.Data

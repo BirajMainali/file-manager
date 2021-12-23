@@ -2,7 +2,7 @@
 using FileManager.Application.Repository.Interfaces;
 using FileManager.Application.Services.Interface;
 using FileManager.Application.Validator.Interfaces;
-using User.Dto;
+using FileManager.Domain.Dto;
 
 namespace FileManager.Application.Services
 {
@@ -21,7 +21,7 @@ namespace FileManager.Application.Services
         {
             using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
             await _userValidator.EnsureUniqueUserEmail(dto.Email);
-            var user = new Domain.Entities.User.User(dto.Name, dto.Gender, dto.Email, Crypter.Crypter.Crypt(dto.Password),
+            var user = new Domain.Entities.User.User(dto.Organization,dto.Name, dto.Gender, dto.Email, Crypter.Crypter.Crypt(dto.Password),
                 dto.Address, dto.Phone);
             await _userRepository.CreateAsync(user);
             await _userRepository.FlushAsync();

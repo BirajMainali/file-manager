@@ -1,6 +1,9 @@
-﻿namespace FileManager.Domain.Entities
+﻿using Base.Entities.Interfaces;
+using FileManager.Domain.Entities.Interfaces;
+
+namespace FileManager.Domain.Entities
 {
-    public class FileRecordInfo : BaseEntity
+    public class FileRecordInfo : BaseEntity, ISoftDelete
     {
         public string Extension { get; protected set; }
         public string Name { get; protected set; }
@@ -15,7 +18,8 @@
         {
         }
 
-        public FileRecordInfo(string extension,string identity, User.User user, string name, string contentType, string path, double size)
+        public FileRecordInfo(string extension, string identity, User.User user, string name, string contentType,
+            string path, double size)
         {
             Extension = extension;
             Identity = identity;

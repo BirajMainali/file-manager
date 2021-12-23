@@ -1,4 +1,4 @@
-﻿using User.Dto;
+﻿using FileManager.Domain.Dto;
 
 namespace FileManager.Application.Services.Interface;
 

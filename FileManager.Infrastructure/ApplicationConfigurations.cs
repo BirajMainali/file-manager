@@ -1,4 +1,6 @@
-﻿using FileManager.Application.Providers;
+﻿using FileManager.Application.Manager;
+using FileManager.Application.Manager.Interfaces;
+using FileManager.Application.Providers;
 using FileManager.Application.Providers.Interfaces;
 using FileManager.Application.Repository;
 using FileManager.Application.Repository.Interfaces;
@@ -19,20 +21,28 @@ namespace FileManager.Infrastructure
             UseServices(services);
             UseMisc(services);
             UseRepos(services);
+            UseManager(services);
             return services;
         }
 
         private static void UseRepos(IServiceCollection service)
             => service.AddScoped<IUserRepository, UserRepository>()
-                .AddScoped<IFileRecordInfoRepository, FileRecordInfoRepository>();
+                .AddScoped<IFileRecordInfoRepository, FileRecordInfoRepository>()
+                .AddScoped<IOrganizationRepository, OrganizationRepository>();
 
         private static void UseServices(IServiceCollection service)
             => service.AddScoped<IUserService, UserService>()
-                .AddScoped<IFileRecordService, FileRecordService>();
+                .AddScoped<IFileRecordService, FileRecordService>()
+                .AddScoped<IOrganizationService, OrganizationService>();
 
         private static void UseMisc(IServiceCollection service)
             => service.AddScoped<ISqlConnectionProvider, SqlConnectionProvider>()
                 .AddScoped<DbContext, ApplicationDbContext>()
-                .AddScoped<IUserValidator,UserValidator>();
+                .AddScoped<IUserValidator, UserValidator>()
+                .AddScoped<IOrganizationValidator, OrganizationValidator>();
+
+        private static void UseManager(IServiceCollection services)
+            => services.AddScoped<IOrganizationUserManager, OrganizationUserManager>()
+                .AddScoped<IFileManager, Application.Manager.FileManager>();
     }
 }
