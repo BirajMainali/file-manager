@@ -1,9 +1,8 @@
-﻿using Base.Entities.Interfaces;
-using FileManager.Domain.Entities.Interfaces;
+﻿using FileManager.Domain.Entities.Interfaces;
 
 namespace FileManager.Domain.Entities
 {
-    public class FileRecordInfo : BaseEntity, ISoftDelete
+    public class FileRecordInfo : BaseEntity, ISoftDelete, IRecordInfo
     {
         public string Extension { get; protected set; }
         public string Name { get; protected set; }
@@ -11,6 +10,8 @@ namespace FileManager.Domain.Entities
         public string Identity { get; protected set; }
         public virtual User.User User { get; protected set; }
         public long UserId { get; set; }
+        public virtual Organization Organization { get; set; }
+        public long OrganizationId { get; set; }
         public string Path { get; protected set; }
         public double Size { get; protected set; }
 
@@ -23,11 +24,14 @@ namespace FileManager.Domain.Entities
         {
             Extension = extension;
             Identity = identity;
-            User = user;
+            RecUser = user;
             Name = name;
             ContentType = contentType;
             Path = path;
             Size = size;
         }
+
+        public User.User RecUser { get; set; }
+        public long RecUserId { get; set; }
     }
 }

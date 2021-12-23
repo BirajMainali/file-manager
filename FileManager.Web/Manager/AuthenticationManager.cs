@@ -28,7 +28,7 @@ namespace FileManager.Web.Manager
             if (user == null)
             {
                 result.Success = false;
-                result.Errors.Add("User not found");
+                result.Errors.Add("RecUser not found");
                 return result;
             }
 

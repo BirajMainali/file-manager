@@ -60,7 +60,7 @@ namespace FileManager.Infrastructure.Migrations
                     b.ToTable("file_record_info");
                 });
 
-            modelBuilder.Entity("FileManager.Domain.Entities.User.User", b =>
+            modelBuilder.Entity("FileManager.Domain.Entities.RecUser.RecUser", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()

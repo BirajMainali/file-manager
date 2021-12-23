@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FileManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211222131255_file record info")]
-    partial class filerecordinfo
+    [Migration("20211223130031_Organization user")]
+    partial class Organizationuser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,6 +32,10 @@ namespace FileManager.Infrastructure.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Extension")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -69,6 +73,61 @@ namespace FileManager.Infrastructure.Migrations
                     b.ToTable("file_record_info");
                 });
 
+            modelBuilder.Entity("FileManager.Domain.Entities.Organization", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("ChangeAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Fax")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Logo")
+                        .HasColumnType("text");
+
+                    b.Property<string>("OrgName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("RecAuditLog")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RecDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<char>("RecStatus")
+                        .HasColumnType("character(1)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("organization");
+                });
+
             modelBuilder.Entity("FileManager.Domain.Entities.RecUser.RecUser", b =>
                 {
                     b.Property<long>("Id")
@@ -79,6 +138,9 @@ namespace FileManager.Infrastructure.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime?>("ChangeAt")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -92,6 +154,9 @@ namespace FileManager.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("OrganizationId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
@@ -100,13 +165,18 @@ namespace FileManager.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("RecAuditLog")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RecDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<char>("RecStatus")
                         .HasColumnType("character(1)");
 
-                    b.Property<string>("TransactionSequence")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
 
                     b.ToTable("user", "auth");
                 });
@@ -120,6 +190,17 @@ namespace FileManager.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("RecUser");
+                });
+
+            modelBuilder.Entity("FileManager.Domain.Entities.RecUser.RecUser", b =>
+                {
+                    b.HasOne("FileManager.Domain.Entities.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organization");
                 });
 #pragma warning restore 612, 618
         }

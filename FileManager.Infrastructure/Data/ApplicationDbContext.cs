@@ -1,15 +1,19 @@
 ﻿using System.Reflection;
 using FileManager.Domain.Entities;
 using FileManager.Domain.Entities.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace FileManager.Infrastructure.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        private readonly IHttpContextAccessor _contextAccessor;
+        public DbSet<Domain.Entities.User.User> Users;
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,  IHttpContextAccessor contextAccessor)
             : base(options)
         {
+            _contextAccessor = contextAccessor;
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -25,7 +29,7 @@ namespace FileManager.Infrastructure.Data
             base.OnConfiguring(optionsBuilder);
         }
 
-        public void SetGlobalQuery<T>(ModelBuilder builder) where T : GenericModel
+        public void SetGlobalQuery<T>(ModelBuilder builder) where T : BaseEntity
         {
             builder.Entity<T>().HasQueryFilter(e => e.RecStatus.Equals('A'));
         }
@@ -53,7 +57,7 @@ namespace FileManager.Infrastructure.Data
                 entry.State = EntityState.Modified;
                 entity.GetType().GetProperty("RecStatus")?.SetValue(entity, 'D');
             }
-
+            BeforeSaveChanges();
             return base.SaveChangesAsync(cancellationToken);
         }
 
@@ -66,8 +70,28 @@ namespace FileManager.Infrastructure.Data
                 entry.State = EntityState.Modified;
                 entry.GetType().GetProperty("RecStatus")?.SetValue(entity, 'D');
             }
-
+            BeforeSaveChanges();
             return base.SaveChanges();
         }
+        private void BeforeSaveChanges()
+        {
+            ChangeTracker.DetectChanges();
+            var changedEntries = ChangeTracker.Entries().Where(x =>
+                x.State == EntityState.Added || x.State == EntityState.Modified || x.State == EntityState.Deleted);
+            foreach (var model in changedEntries)
+            {
+                switch (model.State)
+                {
+                    case EntityState.Added:
+                        if (model.Entity is IRecordInfo recordInfo)
+                        {
+                            var id = _contextAccessor.HttpContext?.User?.FindFirst("Id").Value;
+                            recordInfo.RecUser = Users.Find(id);
+                        }
+                        break;
+                }
+            }
+        }
+
     }
 }

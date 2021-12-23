@@ -8,11 +8,7 @@ using FileManager.Application.Repository.Interfaces;
 using FileManager.Domain.Dto;
 using FileManager.Models;
 using FileManager.Web.Extension;
-using FileManager.Web.Manager;
-using FileManager.Web.Manager.Interfaces;
-using FileManager.Web.Providers.Interfaces;
 using FileManager.Web.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FileManager.Web.Controllers
@@ -44,7 +40,7 @@ namespace FileManager.Web.Controllers
             {
                 if (vm.File.IsFile()) throw new Exception("Invalid file type.");
                 var user = await _userRepository.FindAsync(1); // Remove this hard coded.
-                await _fileManager.SaveFileInfo(new FileInfoRecordDto(user,vm.FileName,vm.File,vm.Description));
+                await _fileManager.SaveFileInfo(new FileInfoRecordDto(user,user.Organization,vm.FileName,vm.File,vm.Description));
                 _notyf.Success("File Added");
                 return RedirectToAction(nameof(Index));
             }

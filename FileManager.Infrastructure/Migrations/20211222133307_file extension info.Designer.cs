@@ -73,7 +73,7 @@ namespace FileManager.Infrastructure.Migrations
                     b.ToTable("file_record_info");
                 });
 
-            modelBuilder.Entity("FileManager.Domain.Entities.User.User", b =>
+            modelBuilder.Entity("FileManager.Domain.Entities.RecUser.RecUser", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -117,13 +117,13 @@ namespace FileManager.Infrastructure.Migrations
 
             modelBuilder.Entity("FileManager.Domain.Entities.FileRecordInfo", b =>
                 {
-                    b.HasOne("FileManager.Domain.Entities.User.User", "User")
+                    b.HasOne("FileManager.Domain.Entities.RecUser.RecUser", "RecUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("RecUser");
                 });
 #pragma warning restore 612, 618
         }

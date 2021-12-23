@@ -1,20 +1,20 @@
-﻿using Base.Entities.Interfaces;
-using FileManager.Domain.Entities.Interfaces;
+﻿using FileManager.Domain.Entities.Interfaces;
 
 namespace FileManager.Domain.Entities.User
 {
-    public class User : GenericModel, ISoftDelete
+    public class User : BaseEntity, ISoftDelete
     {
-        public long Id { get; set; }
         public string Name { get; protected set; }
         public string Gender { get; protected set; }
         public string Email { get; protected set; }
         public string Password { get; protected set; }
         public string Address { get; protected set; }
         public string Phone { get; protected set; }
+        public virtual User? Parent { get; set; }
+        public long? ParentId { get; set; }
         public virtual Organization Organization { get; protected set; }
         public long OrganizationId { get; set; }
-
+        public virtual List<User> Children { get; set; } = new List<User>();
         public User()
         {
         }

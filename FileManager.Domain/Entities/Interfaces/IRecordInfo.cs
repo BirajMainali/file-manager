@@ -1,7 +1,8 @@
-﻿namespace Base.Entities.Interfaces
+﻿namespace FileManager.Domain.Entities.Interfaces
 {
     public interface IRecordInfo
     {
-        public FileManager.Domain.Entities.User.User? User { get; set; }
+        public User.User RecUser { get; set; }
+        public long RecUserId { get; set; }
     }
 }
