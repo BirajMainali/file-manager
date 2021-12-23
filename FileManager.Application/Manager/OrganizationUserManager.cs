@@ -21,8 +21,8 @@ public class OrganizationUserManager : IOrganizationUserManager
     public async Task CreateOrganization(OrganizationUserVo vo)
     {
         using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-        var organization = await _organizationService.Create(ReadyOrganizationDto(vo));
-        await _userService.CreateUser(ReadyUserDto(vo, organization));
+        var organization = await _organizationService.Create(ToOrganizationDto(vo));
+        await _userService.CreateUser(ToUserDto(vo, organization));
         tsc.Complete();
     }
 
@@ -34,7 +34,7 @@ public class OrganizationUserManager : IOrganizationUserManager
         tsc.Complete();
     }
 
-    private UserDto ReadyUserDto(OrganizationUserVo vo, Organization organization)
+    private static UserDto ToUserDto(OrganizationUserVo vo, Organization organization)
         => new UserDto()
         {
             Organization = organization,
@@ -46,7 +46,7 @@ public class OrganizationUserManager : IOrganizationUserManager
             Phone = vo.Phone
         };
 
-    private OrganizationDto ReadyOrganizationDto(OrganizationUserVo vo)
+    private static OrganizationDto ToOrganizationDto(OrganizationUserVo vo)
         => new OrganizationDto()
         {
             OrgName = vo.OrgName,

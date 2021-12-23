@@ -23,7 +23,7 @@ namespace FileManager.Application.Manager
         {
             using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
             var recordVo = await _fileHelper.SaveImage(dto.File);
-            ReadyRecordInfo(dto, recordVo);
+            ToRecordInfo(dto, recordVo);
             await _fileRecordService.RecordFileLog(recordVo);
             tsc.Complete();
         }
@@ -36,7 +36,7 @@ namespace FileManager.Application.Manager
             tsc.Complete();
         }
 
-        private FileRecordVo ReadyRecordInfo(FileInfoRecordDto dto, FileRecordVo vo)
+        private static FileRecordVo ToRecordInfo(FileInfoRecordDto dto, FileRecordVo vo)
         {
             vo.Organization = dto.Organization;
             vo.FileName = dto.FileName;
