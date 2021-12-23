@@ -1,6 +1,6 @@
 ﻿using FileManager.Domain.Entities.Interfaces;
 
-namespace FileManager.Domain.Entities.User
+namespace FileManager.Domain.Entities
 {
     public class User : BaseEntity, ISoftDelete
     {

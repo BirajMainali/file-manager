@@ -1,8 +1,6 @@
-﻿using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace FileManager.Web.Extension
+namespace FileManager.Application.Extensions
 {
     public static class FileValidatorExtension
     {

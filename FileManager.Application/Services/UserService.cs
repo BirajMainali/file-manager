@@ -3,6 +3,7 @@ using FileManager.Application.Repository.Interfaces;
 using FileManager.Application.Services.Interface;
 using FileManager.Application.Validator.Interfaces;
 using FileManager.Domain.Dto;
+using FileManager.Domain.Entities;
 
 namespace FileManager.Application.Services
 {
@@ -17,11 +18,11 @@ namespace FileManager.Application.Services
             _userValidator = userValidator;
         }
 
-        public async Task<Domain.Entities.User.User> CreateUser(UserDto dto)
+        public async Task<User> CreateUser(UserDto dto)
         {
             using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
             await _userValidator.EnsureUniqueUserEmail(dto.Email);
-            var user = new Domain.Entities.User.User(dto.Organization,dto.Name, dto.Gender, dto.Email, Crypter.Crypter.Crypt(dto.Password),
+            var user = new User(dto.Organization,dto.Name, dto.Gender, dto.Email, Crypter.Crypter.Crypt(dto.Password),
                 dto.Address, dto.Phone);
             await _userRepository.CreateAsync(user);
             await _userRepository.FlushAsync();
@@ -29,7 +30,7 @@ namespace FileManager.Application.Services
             return user;
         }
 
-        public async Task Update(Domain.Entities.User.User user, UserDto dto)
+        public async Task Update(User user, UserDto dto)
         {
             using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
             await _userValidator.EnsureUniqueUserEmail(dto.Email);
@@ -39,7 +40,7 @@ namespace FileManager.Application.Services
             tsc.Complete();
         }
 
-        public async Task Remove(Domain.Entities.User.User user)
+        public async Task Remove(User user)
         {
             using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
             _userRepository.Remove(user);

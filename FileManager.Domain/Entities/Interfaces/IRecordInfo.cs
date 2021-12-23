@@ -2,7 +2,7 @@
 {
     public interface IRecordInfo
     {
-        public User.User RecUser { get; set; }
+        public User RecUser { get; set; }
         public long RecUserId { get; set; }
     }
 }

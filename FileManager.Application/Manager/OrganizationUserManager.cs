@@ -26,7 +26,7 @@ public class OrganizationUserManager : IOrganizationUserManager
         tsc.Complete();
     }
 
-    public async Task RemoveOrganization(Organization organization, Domain.Entities.User.User user)
+    public async Task RemoveOrganization(Organization organization, User user)
     {
         using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
         await _organizationService.Remove(organization);

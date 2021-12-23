@@ -1,6 +1,6 @@
 ﻿using System.Transactions;
 
-namespace Base.Helper
+namespace FileManager.Application.Helper
 {
     public static class TransactionScopeHelper
     {

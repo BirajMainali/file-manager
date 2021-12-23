@@ -1,6 +1,6 @@
-﻿using FileManager.Application.Repository.Interfaces;
+﻿using FileManager.Application.Exceptions;
+using FileManager.Application.Repository.Interfaces;
 using FileManager.Application.Validator.Interfaces;
-using User.Exception;
 
 namespace FileManager.Application.Validator
 {

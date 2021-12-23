@@ -1,6 +1,6 @@
-﻿namespace User.Exception
+﻿namespace FileManager.Application.Exceptions
 {
-    public class DuplicateUserException : System.Exception
+    public class DuplicateUserException : Exception
     {
         public DuplicateUserException(string message = "email must be unique") : base(message)
         {

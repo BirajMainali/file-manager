@@ -9,7 +9,7 @@ namespace FileManager.Infrastructure.Data
     public class ApplicationDbContext : DbContext
     {
         private readonly IHttpContextAccessor _contextAccessor;
-        public DbSet<Domain.Entities.User.User> Users;
+        public DbSet<User> Users;
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,  IHttpContextAccessor contextAccessor)
             : base(options)
         {

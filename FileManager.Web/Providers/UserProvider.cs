@@ -25,7 +25,7 @@ namespace FileManager.Web.Providers
         public bool IsLoggedIn()
             => GetCurrentUserId() != null;
 
-        public async Task<Domain.Entities.User.User> GetCurrentUser()
+        public async Task<User> GetCurrentUser()
         {
             var userId = GetCurrentUserId();
             if (userId.HasValue) return await _userRepository.FindOrThrowAsync(userId.Value);

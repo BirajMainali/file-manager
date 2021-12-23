@@ -1,6 +1,6 @@
-﻿using FileManager.Application.Helper.Interfaces;
+﻿using FileManager.Application.Extensions;
+using FileManager.Application.Helper.Interfaces;
 using FileManager.Domain.ValueObject;
-using FileManager.Web.Extension;
 using Microsoft.AspNetCore.Http;
 
 namespace FileManager.Application.Helper

@@ -1,10 +1,11 @@
 ﻿using FileManager.Application.Repository.Base;
 using FileManager.Application.Repository.Interfaces;
+using FileManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace FileManager.Application.Repository{
 
-public class UserRepository : BaseRepository<Domain.Entities.User.User>, IUserRepository
+public class UserRepository : BaseRepository<User>, IUserRepository
 {
     public UserRepository(DbContext context) : base(context)
     {
