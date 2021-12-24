@@ -20,7 +20,11 @@ namespace FileManager.Web
             IConfiguration configuration)
         {
             services.UseAppDiConfiguration();
-            services.AddScoped<IFileHelper, FileHelper>();
+            services.AddScoped<IFileHelper>(sp =>
+            {
+                var identifier = sp.GetService<ICurrentUserProvider>().GetCurrentOrganization().Result.Id;
+                return new FileHelper(identifier);
+            });
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
             services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
             services.AddHttpContextAccessor();
