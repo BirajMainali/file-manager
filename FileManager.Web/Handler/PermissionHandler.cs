@@ -6,7 +6,7 @@ using FileManager.Web.Providers.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace FileManager.Web.Middleware
+namespace FileManager.Web.Handler
 {
     public class PermissionHandler
     {

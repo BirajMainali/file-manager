@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FileManager.Web.Handler;
+using Microsoft.AspNetCore.Builder;
 
 namespace FileManager.Web.Middleware
 {
