@@ -28,12 +28,14 @@ namespace FileManager.Infrastructure
         private static void UseRepos(IServiceCollection service)
             => service.AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IFileRecordInfoRepository, FileRecordInfoRepository>()
-                .AddScoped<IOrganizationRepository, OrganizationRepository>();
+                .AddScoped<IOrganizationRepository, OrganizationRepository>()
+                .AddScoped<IPermissionRepository, PermissionRepository>();
 
         private static void UseServices(IServiceCollection service)
             => service.AddScoped<IUserService, UserService>()
                 .AddScoped<IFileRecordService, FileRecordService>()
-                .AddScoped<IOrganizationService, OrganizationService>();
+                .AddScoped<IOrganizationService, OrganizationService>()
+                .AddScoped<IPermissionService, PermissionService>();
 
         private static void UseMisc(IServiceCollection service)
             => service.AddScoped<ISqlConnectionProvider, SqlConnectionProvider>()

@@ -2,6 +2,7 @@ using System.IO;
 using AspNetCoreHero.ToastNotification.Extensions;
 using FileManager.Application.Constants;
 using FileManager.Infrastructure.Data;
+using FileManager.Web.Middleware;
 using FileManager.Web.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,7 +21,7 @@ namespace FileManager.Web
         }
 
         public IConfiguration Configuration { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.UseConfiguration(Configuration);
@@ -48,9 +49,8 @@ namespace FileManager.Web
                 RequestPath = "/Content"
             });
             app.UseRouting();
-
             app.UseAuthorization();
-
+            app.UseUserAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
