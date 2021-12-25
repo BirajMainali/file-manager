@@ -42,12 +42,14 @@ namespace FileManager.Web.Handler
                 if (!permissions.PermissionTypes.Contains(PermissionConstant.ViewPermission) &&
                     currentRequestMethod != "GET")
                 {
+                    context.Response.StatusCode = 403;
                     context.Response.Redirect(UnAuthorizedPageUrl);
                 }
 
                 if (permissions.PermissionTypes.Contains(PermissionConstant.EditPermission) &&
                     requestedActionName.Equals("Remove") || requestedActionName.Equals("Delete"))
                 {
+                    context.Response.StatusCode = 403;
                     context.Response.Redirect(UnAuthorizedPageUrl);
                 }
             }
