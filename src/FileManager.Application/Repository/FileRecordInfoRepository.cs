@@ -2,12 +2,11 @@
 using FileManager.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FileManager.Application.Repository.Interfaces
+namespace FileManager.Application.Repository.Interfaces;
+
+public class FileRecordInfoRepository : BaseRepository<FileRecordInfo>, IFileRecordInfoRepository
 {
-    public class FileRecordInfoRepository : BaseRepository<FileRecordInfo>, IFileRecordInfoRepository
+    public FileRecordInfoRepository(DbContext context) : base(context)
     {
-        public FileRecordInfoRepository(DbContext context) : base(context)
-        {
-        }
     }
 }

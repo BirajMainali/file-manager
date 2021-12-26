@@ -1,9 +1,9 @@
-﻿using FileManager.Domain.Entities;
+﻿using FileManager.Application.Repository.Base;
+using FileManager.Domain.Entities;
 
-namespace FileManager.Application.Repository.Interfaces
+namespace FileManager.Application.Repository.Interfaces;
+
+public interface IUserRepository : IBaseRepository<User>
 {
-    public interface IUserRepository : Base.IBaseRepository<User>
-    {
-        Task<bool> IsEmailUsed(string email, long? excludedId = null);
-    }
+    Task<bool> IsEmailUsed(string email, long? excludedId = null);
 }

@@ -12,39 +12,46 @@ using FileManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FileManager.Infrastructure
+namespace FileManager.Infrastructure;
+
+public static class ApplicationDbConfigurations
 {
-    public static class ApplicationDbConfigurations
+    public static IServiceCollection UseAppDiConfiguration(this IServiceCollection services)
     {
-        public static IServiceCollection UseAppDiConfiguration(this IServiceCollection services)
-        {
-            UseServices(services);
-            UseMisc(services);
-            UseRepos(services);
-            UseManager(services);
-            return services;
-        }
+        UseServices(services);
+        UseMisc(services);
+        UseRepos(services);
+        UseManager(services);
+        return services;
+    }
 
-        private static void UseRepos(IServiceCollection service)
-            => service.AddScoped<IUserRepository, UserRepository>()
-                .AddScoped<IFileRecordInfoRepository, FileRecordInfoRepository>()
-                .AddScoped<IOrganizationRepository, OrganizationRepository>()
-                .AddScoped<IPermissionRepository, PermissionRepository>();
+    private static void UseRepos(IServiceCollection service)
+    {
+        service.AddScoped<IUserRepository, UserRepository>()
+            .AddScoped<IFileRecordInfoRepository, FileRecordInfoRepository>()
+            .AddScoped<IOrganizationRepository, OrganizationRepository>()
+            .AddScoped<IPermissionRepository, PermissionRepository>();
+    }
 
-        private static void UseServices(IServiceCollection service)
-            => service.AddScoped<IUserService, UserService>()
-                .AddScoped<IFileRecordService, FileRecordService>()
-                .AddScoped<IOrganizationService, OrganizationService>()
-                .AddScoped<IPermissionService, PermissionService>();
+    private static void UseServices(IServiceCollection service)
+    {
+        service.AddScoped<IUserService, UserService>()
+            .AddScoped<IFileRecordService, FileRecordService>()
+            .AddScoped<IOrganizationService, OrganizationService>()
+            .AddScoped<IPermissionService, PermissionService>();
+    }
 
-        private static void UseMisc(IServiceCollection service)
-            => service.AddScoped<ISqlConnectionProvider, SqlConnectionProvider>()
-                .AddScoped<DbContext, ApplicationDbContext>()
-                .AddScoped<IUserValidator, UserValidator>()
-                .AddScoped<IOrganizationValidator, OrganizationValidator>();
+    private static void UseMisc(IServiceCollection service)
+    {
+        service.AddScoped<ISqlConnectionProvider, SqlConnectionProvider>()
+            .AddScoped<DbContext, ApplicationDbContext>()
+            .AddScoped<IUserValidator, UserValidator>()
+            .AddScoped<IOrganizationValidator, OrganizationValidator>();
+    }
 
-        private static void UseManager(IServiceCollection services)
-            => services.AddScoped<IOrganizationUserManager, OrganizationUserManager>()
-                .AddScoped<IFileManager, Application.Manager.FileManager>();
+    private static void UseManager(IServiceCollection services)
+    {
+        services.AddScoped<IOrganizationUserManager, OrganizationUserManager>()
+            .AddScoped<IFileManager, Application.Manager.FileManager>();
     }
 }

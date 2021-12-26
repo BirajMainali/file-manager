@@ -1,11 +1,10 @@
 ﻿using FileManager.Domain.Entities;
 using FileManager.Domain.ValueObject;
 
-namespace FileManager.Application.Services.Interface
+namespace FileManager.Application.Services.Interface;
+
+public interface IFileRecordService
 {
-    public interface IFileRecordService
-    {
-        Task RecordFileLog(FileRecordVo vo);
-        Task RemoveFileRecord(FileRecordInfo fileRecord);
-    }
+    Task RecordFileLog(FileRecordVo vo);
+    Task RemoveFileRecord(FileRecordInfo fileRecord);
 }

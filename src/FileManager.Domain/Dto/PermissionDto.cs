@@ -1,10 +1,9 @@
 ﻿using FileManager.Domain.Entities;
 
-namespace FileManager.Domain.Dto
+namespace FileManager.Domain.Dto;
+
+public class PermissionDto
 {
-    public class PermissionDto
-    {
-        public List<string>? PermissionTypes { get; set; } = new List<string>();
-        public User User { get; set; }
-    }
+    public List<string>? PermissionTypes { get; set; } = new();
+    public User User { get; set; }
 }

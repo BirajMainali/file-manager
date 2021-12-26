@@ -1,7 +1,6 @@
-﻿namespace FileManager.Application.Validator.Interfaces
+﻿namespace FileManager.Application.Validator.Interfaces;
+
+public interface IUserValidator
 {
-    public interface IUserValidator
-    {
-        Task EnsureUniqueUserEmail(string email, long? id = null);
-    }
+    Task EnsureUniqueUserEmail(string email, long? id = null);
 }

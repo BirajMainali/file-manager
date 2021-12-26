@@ -11,8 +11,8 @@ namespace FileManager.Web.Providers
     public class CurrentUserProvider : ICurrentUserProvider
     {
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IUserRepository _userRepository;
         private readonly IOrganizationRepository _organizationRepository;
+        private readonly IUserRepository _userRepository;
 
         public CurrentUserProvider(IHttpContextAccessor contextAccessor, IUserRepository userRepository,
             IOrganizationRepository organizationRepository)
@@ -23,7 +23,9 @@ namespace FileManager.Web.Providers
         }
 
         public bool IsLoggedIn()
-            => GetCurrentUserId() != null;
+        {
+            return GetCurrentUserId() != null;
+        }
 
         public async Task<User> GetCurrentUser()
         {

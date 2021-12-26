@@ -15,28 +15,31 @@ namespace FileManager.Web.Providers
             SetProvider();
         }
 
-        private void SetProvider()
+        public IDirectoryContents GetDirectoryContents(string subpath)
         {
-            if (!Directory.Exists(_root))
-            {
-                Directory.CreateDirectory(_root);
-            }
-
-            if (_provider == null)
-            {
-                _provider = new PhysicalFileProvider(_root);
-            }
+            return GetProvider().GetDirectoryContents(subpath);
         }
 
-        private IFileProvider GetProvider() => _provider;
-
-        public IDirectoryContents GetDirectoryContents(string subpath) 
-            => GetProvider().GetDirectoryContents(subpath);
-
         public IFileInfo GetFileInfo(string subpath)
-            => GetProvider().GetFileInfo(subpath);
+        {
+            return GetProvider().GetFileInfo(subpath);
+        }
 
         public IChangeToken Watch(string filter)
-            => GetProvider().Watch(filter);
+        {
+            return GetProvider().Watch(filter);
+        }
+
+        private void SetProvider()
+        {
+            if (!Directory.Exists(_root)) Directory.CreateDirectory(_root);
+
+            if (_provider == null) _provider = new PhysicalFileProvider(_root);
+        }
+
+        private IFileProvider GetProvider()
+        {
+            return _provider;
+        }
     }
 }

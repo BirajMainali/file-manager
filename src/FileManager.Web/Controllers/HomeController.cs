@@ -16,12 +16,13 @@ namespace FileManager.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IFileManager _fileManager;
-        private readonly IFileRecordInfoRepository _recordRepository;
-        private readonly INotyfService _notyf;
         private readonly ICurrentUserProvider _currentUserProvider;
+        private readonly IFileManager _fileManager;
+        private readonly INotyfService _notyf;
+        private readonly IFileRecordInfoRepository _recordRepository;
 
-        public HomeController(IFileManager fileManager, IFileRecordInfoRepository recordRepository, INotyfService notyf, ICurrentUserProvider currentUserProvider)
+        public HomeController(IFileManager fileManager, IFileRecordInfoRepository recordRepository, INotyfService notyf,
+            ICurrentUserProvider currentUserProvider)
         {
             _fileManager = fileManager;
             _recordRepository = recordRepository;
@@ -30,9 +31,14 @@ namespace FileManager.Web.Controllers
         }
 
         public async Task<IActionResult> Index()
-            => View(await _recordRepository.GetAllAsync());
+        {
+            return View(await _recordRepository.GetAllAsync());
+        }
 
-        public IActionResult New() => View(new FileUploadVm());
+        public IActionResult New()
+        {
+            return View(new FileUploadVm());
+        }
 
         [HttpPost]
         public async Task<IActionResult> New(FileUploadVm vm)
@@ -41,7 +47,8 @@ namespace FileManager.Web.Controllers
             {
                 if (vm.File.IsFile()) throw new Exception("Invalid file type.");
                 var organization = await _currentUserProvider.GetCurrentOrganization();
-                await _fileManager.SaveFileInfo(new FileInfoRecordDto(organization,vm.FileName,vm.File,vm.Description));
+                await _fileManager.SaveFileInfo(new FileInfoRecordDto(organization, vm.FileName, vm.File,
+                    vm.Description));
                 _notyf.Success("File Added");
                 return RedirectToAction(nameof(Index));
             }

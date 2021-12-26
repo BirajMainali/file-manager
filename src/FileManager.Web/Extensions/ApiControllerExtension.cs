@@ -8,8 +8,7 @@ namespace FileManager.Web.Extensions
         {
             return controller.Ok(new
             {
-                notify,
-                data = data
+                notify, data
             });
         }
 

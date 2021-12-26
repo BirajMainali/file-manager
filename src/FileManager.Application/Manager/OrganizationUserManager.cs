@@ -9,8 +9,8 @@ namespace FileManager.Application.Manager;
 
 public class OrganizationUserManager : IOrganizationUserManager
 {
-    private readonly IUserService _userService;
     private readonly IOrganizationService _organizationService;
+    private readonly IUserService _userService;
 
     public OrganizationUserManager(IUserService userService, IOrganizationService organizationService)
     {
@@ -35,7 +35,8 @@ public class OrganizationUserManager : IOrganizationUserManager
     }
 
     private static UserDto ToUserDto(OrganizationUserVo vo, Organization organization)
-        => new UserDto()
+    {
+        return new()
         {
             Organization = organization,
             Name = vo.Name,
@@ -45,9 +46,11 @@ public class OrganizationUserManager : IOrganizationUserManager
             Password = vo.Password,
             Phone = vo.Phone
         };
+    }
 
     private static OrganizationDto ToOrganizationDto(OrganizationUserVo vo)
-        => new OrganizationDto()
+    {
+        return new()
         {
             OrgName = vo.OrgName,
             Address = vo.Address,
@@ -56,4 +59,5 @@ public class OrganizationUserManager : IOrganizationUserManager
             Description = vo.Description,
             Email = vo.Email
         };
+    }
 }

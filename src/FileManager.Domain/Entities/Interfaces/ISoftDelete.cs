@@ -1,7 +1,5 @@
-﻿namespace FileManager.Domain.Entities.Interfaces
+﻿namespace FileManager.Domain.Entities.Interfaces;
+
+public interface ISoftDelete
 {
-    public interface ISoftDelete
-    {
-        
-    }
 }

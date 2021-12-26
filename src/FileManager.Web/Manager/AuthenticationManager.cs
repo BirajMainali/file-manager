@@ -42,7 +42,7 @@ namespace FileManager.Web.Manager
             var httpContext = _httpContextAccessor.HttpContext;
             var claims = new List<Claim>
             {
-                new("Id", user.Id.ToString()),
+                new("Id", user.Id.ToString())
             };
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             await httpContext.SignInAsync(

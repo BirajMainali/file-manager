@@ -16,8 +16,6 @@ public class OrganizationValidator : IOrganizationValidator
     public async Task EnsureUniqueOrg(string email, long? id = null)
     {
         if (await _organizationRepository.IsOrganizationUsed(email, id))
-        {
             throw new DuplicateNameException("Organization Email is in use");
-        }
     }
 }

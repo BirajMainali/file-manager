@@ -35,10 +35,7 @@ public class PermissionService : IPermissionService
     private async Task RemovePreviousPermission(long userId)
     {
         var previousPermission = await _permissionRepository.GetAllAsync(x => x.UserId == userId);
-        foreach (var permission in previousPermission)
-        {
-            _permissionRepository.Remove(permission);
-        }
+        foreach (var permission in previousPermission) _permissionRepository.Remove(permission);
 
         await _permissionRepository.FlushAsync();
     }

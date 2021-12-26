@@ -15,8 +15,8 @@ namespace FileManager.Web.Controllers
     public class LoginController : Controller
     {
         private readonly IAuthenticationManager _authenticationManager;
-        private readonly IUserService _userService;
         private readonly INotyfService _notyfService;
+        private readonly IUserService _userService;
 
         public LoginController(IAuthenticationManager authenticationManager, IUserService userService,
             INotyfService notyfService)
@@ -26,7 +26,10 @@ namespace FileManager.Web.Controllers
             _notyfService = notyfService;
         }
 
-        public IActionResult Index() => View(new LoginVm());
+        public IActionResult Index()
+        {
+            return View(new LoginVm());
+        }
 
         [HttpPost]
         public async Task<IActionResult> Index(LoginVm vm)
@@ -47,14 +50,17 @@ namespace FileManager.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register() => View(new UserVm());
+        public IActionResult Register()
+        {
+            return View(new UserVm());
+        }
 
         [HttpPost]
         public async Task<IActionResult> Register(UserVm vm)
         {
             try
             {
-                var userDto = new UserDto()
+                var userDto = new UserDto
                 {
                     Address = vm.Address,
                     Email = vm.Email,
