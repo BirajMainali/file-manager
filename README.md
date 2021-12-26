@@ -1,5 +1,6 @@
 
-![Expense Tracker Logo](file-manager-icon.png)
+![Expense Tracker Logo](file-manager-icon.svg)
+
 
 # FileManager
 
