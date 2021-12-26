@@ -14,13 +14,6 @@
         <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0"/>
         <PackageReference Include="Npgsql" Version="5.0.10"/>
     </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="Base, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null, ProcessorArchitecture=MSIL">
-            <HintPath>..\Base\bin\Debug\net5.0\Base.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
     <ItemGroup>
         <ProjectReference Include="..\FileManager.Domain\FileManager.Domain.csproj"/>
     </ItemGroup>
