@@ -36,7 +36,7 @@ public class OrganizationUserManager : IOrganizationUserManager
 
     private static UserDto ToUserDto(OrganizationUserVo vo, Organization organization)
     {
-        return new()
+        return new UserDto
         {
             Organization = organization,
             Name = vo.Name,
@@ -50,7 +50,7 @@ public class OrganizationUserManager : IOrganizationUserManager
 
     private static OrganizationDto ToOrganizationDto(OrganizationUserVo vo)
     {
-        return new()
+        return new OrganizationDto
         {
             OrgName = vo.OrgName,
             Address = vo.Address,

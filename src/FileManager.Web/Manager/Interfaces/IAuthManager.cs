@@ -1,9 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace FileManager.Web.Manager.Interfaces
+namespace FileManager.Web.Manager.Interfaces;
+
+public interface IAuthenticationManager
 {
-    public interface IAuthenticationManager
-    {
-        Task<AuthResult> Login(string identity, string password);
-    }
+    Task<AuthResult> Login(string identity, string password);
 }

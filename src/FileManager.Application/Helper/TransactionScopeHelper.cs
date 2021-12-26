@@ -6,6 +6,6 @@ public static class TransactionScopeHelper
 {
     public static TransactionScope Scope()
     {
-        return new(TransactionScopeAsyncFlowOption.Enabled);
+        return new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
     }
 }

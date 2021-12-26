@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>FileManager.Application</RootNamespace>
@@ -10,9 +10,9 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="6.0.1"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0"/>
-        <PackageReference Include="Npgsql" Version="5.0.10"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0"/>
+        <PackageReference Include="Npgsql" Version="6.0.1"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\FileManager.Domain\FileManager.Domain.csproj"/>

@@ -12,35 +12,34 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace FileManager.Web
+namespace FileManager.Web;
+
+public static class DiConfig
 {
-    public static class DiConfig
+    public static IServiceCollection UseConfiguration(this IServiceCollection services,
+        IConfiguration configuration)
     {
-        public static IServiceCollection UseConfiguration(this IServiceCollection services,
-            IConfiguration configuration)
+        services.UseAppDiConfiguration();
+        services.AddScoped<IFileHelper>(sp =>
         {
-            services.UseAppDiConfiguration();
-            services.AddScoped<IFileHelper>(sp =>
-            {
-                var identifier = sp.GetService<ICurrentUserProvider>().GetCurrentOrganization().Result.Id;
-                return new FileHelper(identifier);
-            });
-            services.AddScoped<IAuthenticationManager, AuthenticationManager>();
-            services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
-            services.AddHttpContextAccessor();
-            services.AddControllersWithViews().AddRazorRuntimeCompilation();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(x => { x.LoginPath = "/Login"; });
-            services.AddNotyf(config =>
-            {
-                config.DurationInSeconds = 10;
-                config.IsDismissable = true;
-                config.Position = NotyfPosition.BottomRight;
-            });
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(
-                    configuration.GetConnectionString("DefaultConnection")));
-            return services;
-        }
+            var identifier = sp.GetService<ICurrentUserProvider>().GetCurrentOrganization().Result.Id;
+            return new FileHelper(identifier);
+        });
+        services.AddScoped<IAuthenticationManager, AuthenticationManager>();
+        services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+        services.AddHttpContextAccessor();
+        services.AddControllersWithViews().AddRazorRuntimeCompilation();
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(x => { x.LoginPath = "/Login"; });
+        services.AddNotyf(config =>
+        {
+            config.DurationInSeconds = 10;
+            config.IsDismissable = true;
+            config.Position = NotyfPosition.BottomRight;
+        });
+        services.AddDbContext<ApplicationDbContext>(options =>
+            options.UseNpgsql(
+                configuration.GetConnectionString("DefaultConnection")));
+        return services;
     }
 }
