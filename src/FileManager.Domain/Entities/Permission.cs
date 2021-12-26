@@ -5,7 +5,7 @@ namespace FileManager.Domain.Entities;
 public class Permission : BaseEntity, ISoftDelete
 {
     public List<string>? PermissionTypes { get; protected set; }
-    public User User { get; protected set; }
+    public virtual User User { get; protected set; }
     public long UserId { get; set; }
 
 
