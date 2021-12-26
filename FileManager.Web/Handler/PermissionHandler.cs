@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FileManager.Application.Constants;
 using FileManager.Application.Repository.Interfaces;
@@ -39,15 +40,13 @@ namespace FileManager.Web.Handler
             {
                 var permissions = await permissionRepository.GetItemAsync(x => x.UserId == currentUserId);
 
-                if (!permissions.PermissionTypes.Contains(PermissionConstant.ViewPermission) &&
-                    currentRequestMethod != "GET")
+                if (permissions.PermissionTypes.Contains(PermissionConstant.ViewPermission) && currentRequestMethod != "GET")
                 {
                     context.Response.StatusCode = 403;
                     context.Response.Redirect(UnAuthorizedPageUrl);
                 }
 
-                if (permissions.PermissionTypes.Contains(PermissionConstant.EditPermission) &&
-                    requestedActionName.Equals("Remove") || requestedActionName.Equals("Delete"))
+                if (permissions.PermissionTypes.Contains(PermissionConstant.EditPermission) && requestedActionName.Equals("Remove") || requestedActionName.Equals("Delete"))
                 {
                     context.Response.StatusCode = 403;
                     context.Response.Redirect(UnAuthorizedPageUrl);
