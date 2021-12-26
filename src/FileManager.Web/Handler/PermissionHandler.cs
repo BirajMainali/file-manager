@@ -28,7 +28,7 @@ namespace FileManager.Web.Handler
             _next = next;
         }
 
-        public async Task HandlePermission(HttpContext context, ICurrentUserProvider userProvider,
+        public async Task Invoke(HttpContext context, ICurrentUserProvider userProvider,
             IPermissionRepository permissionRepository)
         {
             var currentRequestPath = context.Request.Path;
