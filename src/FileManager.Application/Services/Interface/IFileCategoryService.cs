@@ -1,4 +1,5 @@
 using FileManager.Domain.Dto;
+using FileManager.Domain.Entities;
 
 namespace FileManager.Application.Services.Interface
 {

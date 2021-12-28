@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
+#nullable disable
+
 namespace FileManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
@@ -16,19 +18,66 @@ namespace FileManager.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.10")
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("FileManager.Domain.Entities.FileCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("ChangeAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("OrganizationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("Priority")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("RecAuditLog")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RecDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<char>("RecStatus")
+                        .HasColumnType("character(1)");
+
+                    b.Property<long>("RecUserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("RecUserId");
+
+                    b.ToTable("file_category", (string)null);
+                });
 
             modelBuilder.Entity("FileManager.Domain.Entities.FileRecordInfo", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime?>("ChangeAt")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ContentType")
                         .IsRequired()
@@ -37,6 +86,9 @@ namespace FileManager.Infrastructure.Migrations
                     b.Property<string>("Extension")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<long>("FileCategoryId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Identity")
                         .IsRequired()
@@ -57,7 +109,7 @@ namespace FileManager.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("RecDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<char>("RecStatus")
                         .HasColumnType("character(1)");
@@ -70,26 +122,29 @@ namespace FileManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FileCategoryId");
+
                     b.HasIndex("OrganizationId");
 
                     b.HasIndex("RecUserId");
 
-                    b.ToTable("file_record_info");
+                    b.ToTable("file_record_info", (string)null);
                 });
 
             modelBuilder.Entity("FileManager.Domain.Entities.Organization", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ChangeAt")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -118,7 +173,7 @@ namespace FileManager.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("RecDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<char>("RecStatus")
                         .HasColumnType("character(1)");
@@ -129,18 +184,19 @@ namespace FileManager.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("organization");
+                    b.ToTable("organization", (string)null);
                 });
 
             modelBuilder.Entity("FileManager.Domain.Entities.Permission", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime?>("ChangeAt")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<List<string>>("PermissionTypes")
                         .HasColumnType("text[]");
@@ -149,7 +205,7 @@ namespace FileManager.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("RecDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<char>("RecStatus")
                         .HasColumnType("character(1)");
@@ -168,15 +224,16 @@ namespace FileManager.Infrastructure.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime?>("ChangeAt")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -208,7 +265,7 @@ namespace FileManager.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("RecDate")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<char>("RecStatus")
                         .HasColumnType("character(1)");
@@ -222,7 +279,7 @@ namespace FileManager.Infrastructure.Migrations
                     b.ToTable("user", "auth");
                 });
 
-            modelBuilder.Entity("FileManager.Domain.Entities.FileRecordInfo", b =>
+            modelBuilder.Entity("FileManager.Domain.Entities.FileCategory", b =>
                 {
                     b.HasOne("FileManager.Domain.Entities.Organization", "Organization")
                         .WithMany()
@@ -235,6 +292,33 @@ namespace FileManager.Infrastructure.Migrations
                         .HasForeignKey("RecUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("RecUser");
+                });
+
+            modelBuilder.Entity("FileManager.Domain.Entities.FileRecordInfo", b =>
+                {
+                    b.HasOne("FileManager.Domain.Entities.FileCategory", "FileCategory")
+                        .WithMany()
+                        .HasForeignKey("FileCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FileManager.Domain.Entities.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FileManager.Domain.Entities.User", "RecUser")
+                        .WithMany()
+                        .HasForeignKey("RecUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FileCategory");
 
                     b.Navigation("Organization");
 

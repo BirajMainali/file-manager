@@ -30,7 +30,8 @@ public static class ApplicationDbConfigurations
         service.AddScoped<IUserRepository, UserRepository>()
             .AddScoped<IFileRecordInfoRepository, FileRecordInfoRepository>()
             .AddScoped<IOrganizationRepository, OrganizationRepository>()
-            .AddScoped<IPermissionRepository, PermissionRepository>();
+            .AddScoped<IPermissionRepository, PermissionRepository>()
+            .AddScoped<IFileCategoryRepository, FileCategoryRepository>();
     }
 
     private static void UseServices(IServiceCollection service)
@@ -38,7 +39,8 @@ public static class ApplicationDbConfigurations
         service.AddScoped<IUserService, UserService>()
             .AddScoped<IFileRecordService, FileRecordService>()
             .AddScoped<IOrganizationService, OrganizationService>()
-            .AddScoped<IPermissionService, PermissionService>();
+            .AddScoped<IPermissionService, PermissionService>()
+            .AddScoped<IFileCategoryService, FileCategoryService>();
     }
 
     private static void UseMisc(IServiceCollection service)

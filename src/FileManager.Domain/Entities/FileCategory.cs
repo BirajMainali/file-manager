@@ -1,5 +1,6 @@
-using FileManager.Domain.Entities;
 using FileManager.Domain.Entities.Interfaces;
+
+namespace FileManager.Domain.Entities;
 
 public class FileCategory : BaseEntity, ISoftDelete, IRecordInfo
 {
@@ -8,7 +9,7 @@ public class FileCategory : BaseEntity, ISoftDelete, IRecordInfo
     public virtual Organization Organization { get; protected set; }
     public long OrganizationId { get; set; }
     public long? Priority { get; set; }
-    public User RecUser { get; set; }
+    public virtual User RecUser { get; set; }
     public long RecUserId { get; set; }
 
 
@@ -30,4 +31,3 @@ public class FileCategory : BaseEntity, ISoftDelete, IRecordInfo
         Priority = priotity;
     }
 }
-

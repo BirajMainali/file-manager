@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using FileManager.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace FileManager.Web.Migrations
+namespace FileManager.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211228171656_file category")]
+    partial class filecategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,6 +24,51 @@ namespace FileManager.Web.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("FileManager.Domain.Entities.FileCategory", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("ChangeAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("OrganizationId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("Priority")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("RecAuditLog")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("RecDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<char>("RecStatus")
+                        .HasColumnType("character(1)");
+
+                    b.Property<long>("RecUserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId");
+
+                    b.HasIndex("RecUserId");
+
+                    b.ToTable("file_category", (string)null);
+                });
 
             modelBuilder.Entity("FileManager.Domain.Entities.FileRecordInfo", b =>
                 {
@@ -41,6 +88,9 @@ namespace FileManager.Web.Migrations
                     b.Property<string>("Extension")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<long>("FileCategoryId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Identity")
                         .IsRequired()
@@ -73,6 +123,8 @@ namespace FileManager.Web.Migrations
                         .HasColumnType("double precision");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FileCategoryId");
 
                     b.HasIndex("OrganizationId");
 
@@ -229,7 +281,7 @@ namespace FileManager.Web.Migrations
                     b.ToTable("user", "auth");
                 });
 
-            modelBuilder.Entity("FileManager.Domain.Entities.FileRecordInfo", b =>
+            modelBuilder.Entity("FileManager.Domain.Entities.FileCategory", b =>
                 {
                     b.HasOne("FileManager.Domain.Entities.Organization", "Organization")
                         .WithMany()
@@ -242,6 +294,33 @@ namespace FileManager.Web.Migrations
                         .HasForeignKey("RecUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Organization");
+
+                    b.Navigation("RecUser");
+                });
+
+            modelBuilder.Entity("FileManager.Domain.Entities.FileRecordInfo", b =>
+                {
+                    b.HasOne("FileManager.Domain.Entities.FileCategory", "FileCategory")
+                        .WithMany()
+                        .HasForeignKey("FileCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FileManager.Domain.Entities.Organization", "Organization")
+                        .WithMany()
+                        .HasForeignKey("OrganizationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FileManager.Domain.Entities.User", "RecUser")
+                        .WithMany()
+                        .HasForeignKey("RecUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FileCategory");
 
                     b.Navigation("Organization");
 

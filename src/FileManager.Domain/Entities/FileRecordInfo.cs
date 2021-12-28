@@ -17,6 +17,7 @@ public class FileRecordInfo : BaseEntity, ISoftDelete, IRecordInfo
         ContentType = contentType;
         Path = path;
         Size = size;
+        Organization = organization;
         FileCategory = fileCategory;
     }
 
