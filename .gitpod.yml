@@ -1,0 +1,20 @@
+image:
+  file: .gitpod.Dockerfile
+
+ports:
+  - port: 5432
+    onOpen: ignore
+  - port: 8000-8999
+    visibility: public
+
+tasks:
+  # Mitigation for https://github.com/gitpod-io/gitpod/issues/6460 
+  - name: Postinstall .NET 6.0 and dev certificates
+    init: |
+      mkdir -p $DOTNET_ROOT && curl -fsSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel $DOTNET_VERSION --install-dir $DOTNET_ROOT 
+      sudo apt install libnss3-tools
+      ./scripts/ubuntu-create-dotnet-cert.sh
+      dotnet restore
+vscode:
+  extensions:
+    - muhammad-sammy.csharp
