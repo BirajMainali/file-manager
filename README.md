@@ -15,4 +15,8 @@ Organizational file management system where we can Manage multiple official docu
 2. `dotnet ef migrations add "permission" -s ../FileManager.Web/`
 
 
+#### gitpod
+**Exec** : ` psql --command "CREATE USER postgres SUPERUSER;"`
+
+
 
