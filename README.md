@@ -12,7 +12,7 @@ Organizational file management system where we can Manage multiple official docu
 #### Add Migrations
 
 1. `cd FileManager.Infrastructure/`
-2. `dotnet ef migrations add "permission" -s ../src/FileManager.Web/`
+2. `dotnet ef migrations add "permission" -s ../FileManager.Web/`
 
 
 
