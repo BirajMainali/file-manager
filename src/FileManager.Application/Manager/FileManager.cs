@@ -22,7 +22,7 @@ public class FileManager : IFileManager
     public async Task SaveFileInfo(FileInfoRecordDto dto)
     {
         using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-        var recordVo = await _fileHelper.SaveImage(dto.File);
+        var recordVo = await _fileHelper.SaveImage(dto.File, dto.Organization.Id);
         ToRecordInfo(dto, recordVo);
         await _fileRecordService.RecordFileLog(recordVo);
         tsc.Complete();
@@ -32,7 +32,7 @@ public class FileManager : IFileManager
     {
         using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
         await _fileRecordService.RemoveFileRecord(fileRecord);
-        _fileHelper.RemoveImage(fileRecord.Name);
+        _fileHelper.RemoveImage(fileRecord.OrganizationId, fileRecord.Name);
         tsc.Complete();
     }
 

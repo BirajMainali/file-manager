@@ -5,6 +5,6 @@ namespace FileManager.Application.Helper.Interfaces;
 
 public interface IFileHelper
 {
-    Task<FileRecordVo> SaveImage(IFormFile file, string? type = null);
-    void RemoveImage(string identity);
+    Task<FileRecordVo> SaveImage(IFormFile file, long organizationId, string? type = null);
+    void RemoveImage(long organizationId, string identity);
 }

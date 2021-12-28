@@ -6,23 +6,23 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.1"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1"/>
+        <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Npgsql" Version="6.0.1"/>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.1"/>
+        <PackageReference Include="Npgsql" Version="6.0.1" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Content"/>
+        <Folder Include="Content" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\FileManager.Application\FileManager.Application.csproj"/>
-        <ProjectReference Include="..\FileManager.Infrastructure\FileManager.Infrastructure.csproj"/>
+        <ProjectReference Include="..\FileManager.Application\FileManager.Application.csproj" />
+        <ProjectReference Include="..\FileManager.Infrastructure\FileManager.Infrastructure.csproj" />
     </ItemGroup>
 </Project>

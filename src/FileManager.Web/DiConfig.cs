@@ -20,11 +20,7 @@ public static class DiConfig
         IConfiguration configuration)
     {
         services.UseAppDiConfiguration();
-        services.AddScoped<IFileHelper>(sp =>
-        {
-            var identifier = sp.GetService<ICurrentUserProvider>().GetCurrentOrganization().Result.Id;
-            return new FileHelper(identifier);
-        });
+        services.AddScoped<IFileHelper, FileHelper>();
         services.AddScoped<IAuthenticationManager, AuthenticationManager>();
         services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
         services.AddHttpContextAccessor();
@@ -39,7 +35,7 @@ public static class DiConfig
         });
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(
-                configuration.GetConnectionString("DefaultConnection")));
+                configuration.GetConnectionString("DefaultConnection"), m => m.MigrationsAssembly("FileManager.Web")));
         return services;
     }
 }

@@ -9,16 +9,15 @@ public class FileHelper : IFileHelper
 {
     private static string _root = "Content/Files/";
 
-    public FileHelper(long organizationIdentifier)
+    public FileHelper()
     {
-        _root = $"{_root}/{organizationIdentifier}/";
     }
 
-    public async Task<FileRecordVo> SaveImage(IFormFile file, string? type = null)
+    public async Task<FileRecordVo> SaveImage(IFormFile file, long organizationId, string? type = null)
     {
-        if (!string.IsNullOrEmpty(type)) _root = $"{_root}/{type}/";
-
         if (file.IsFile()) throw new Exception("Invalid file type.");
+        _root = _root + "/" + organizationId;
+        if (!string.IsNullOrEmpty(type)) _root = $"{_root}/{type}/";
         EnsureDirectoryIsCreated(_root);
         var extension = Path.GetExtension(file.FileName);
         var encryptedFileName = new Guid() + extension;
@@ -35,8 +34,9 @@ public class FileHelper : IFileHelper
         };
     }
 
-    public void RemoveImage(string identity)
+    public void RemoveImage(long organizationId, string identity)
     {
+        _root = _root + "/" + identity;
         File.Delete(_root + identity);
     }
 
