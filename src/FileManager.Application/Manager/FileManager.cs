@@ -38,9 +38,11 @@ public class FileManager : IFileManager
 
     private static FileRecordVo ToRecordInfo(FileInfoRecordDto dto, FileRecordVo vo)
     {
+
         vo.Organization = dto.Organization;
         vo.FileName = dto.FileName;
         vo.Description = dto.Description;
+        vo.FileCategory = dto.FileCategory;
         return vo;
     }
 }

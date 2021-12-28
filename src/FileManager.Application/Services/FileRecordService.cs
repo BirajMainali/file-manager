@@ -19,7 +19,7 @@ public class FileRecordService : IFileRecordService
     public async Task RecordFileLog(FileRecordVo vo)
     {
         using var tsc = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-        var fileInfo = new FileRecordInfo(vo.Extension, vo.Identity, vo.Organization, vo.FileName, vo.ContentType,
+        var fileInfo = new FileRecordInfo(vo.FileCategory,vo.Extension, vo.Identity, vo.Organization, vo.FileName, vo.ContentType,
             vo.Path, vo.Size);
         await _recordInfoRepository.CreateAsync(fileInfo);
         await _recordInfoRepository.FlushAsync();

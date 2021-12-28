@@ -20,10 +20,12 @@ public class HomeController : Controller
     private readonly IFileManager _fileManager;
     private readonly INotyfService _notyf;
     private readonly IFileRecordInfoRepository _recordRepository;
+    private readonly IFileCategoryRepository _fileCategoryRepository;
 
     public HomeController(IFileManager fileManager, IFileRecordInfoRepository recordRepository, INotyfService notyf,
-        ICurrentUserProvider currentUserProvider)
+        ICurrentUserProvider currentUserProvider, IFileCategoryRepository fileCategoryRepository)
     {
+        _fileCategoryRepository = fileCategoryRepository;
         _fileManager = fileManager;
         _recordRepository = recordRepository;
         _notyf = notyf;
@@ -47,8 +49,8 @@ public class HomeController : Controller
         {
             if (vm.File.IsFile()) throw new Exception("Invalid file type.");
             var organization = await _currentUserProvider.GetCurrentOrganization();
-            await _fileManager.SaveFileInfo(new FileInfoRecordDto(organization, vm.FileName, vm.File,
-                vm.Description));
+            var fileCategory = await _fileCategoryRepository.FindOrThrowAsync(vm.FileCategoryId);
+            await _fileManager.SaveFileInfo(new FileInfoRecordDto(organization, fileCategory, vm.FileName, vm.File, vm.Description));
             _notyf.Success("File Added");
             return RedirectToAction(nameof(Index));
         }

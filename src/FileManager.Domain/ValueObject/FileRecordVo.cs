@@ -5,6 +5,7 @@ namespace FileManager.Domain.ValueObject;
 public class FileRecordVo
 {
     public string Identity { get; set; }
+    public FileCategory FileCategory { get; set; }
     public string Path { get; set; }
     public double Size { get; set; }
     public string ContentType { get; set; }

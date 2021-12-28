@@ -11,6 +11,7 @@ public static class EntityRegisterer
         modelBuilder.Entity<FileRecordInfo>().ToTable("file_record_info");
         modelBuilder.Entity<Organization>().ToTable("organization");
         modelBuilder.Entity<Permission>().ToTable("permission", "auth");
+        modelBuilder.Entity<FileCategory>().ToTable("file_category");
         return modelBuilder;
     }
 }
