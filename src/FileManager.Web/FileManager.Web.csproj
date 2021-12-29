@@ -62,5 +62,7 @@
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.js" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\dist\jquery.min.map" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
+      <_ContentIncludedByDefault Remove="Pages\Organization\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Pages\Organization\Index.cshtml" />
     </ItemGroup>
 </Project>
