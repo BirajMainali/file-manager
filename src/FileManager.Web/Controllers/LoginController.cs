@@ -26,11 +26,13 @@ public class LoginController : Controller
         _notyfService = notyfService;
     }
 
+    [AllowAnonymous]
     public IActionResult Index()
     {
         return View(new LoginVm());
     }
 
+    [AllowAnonymous]
     [HttpPost]
     public async Task<IActionResult> Index(LoginVm vm)
     {

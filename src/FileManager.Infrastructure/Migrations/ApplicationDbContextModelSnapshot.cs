@@ -147,7 +147,6 @@ namespace FileManager.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
@@ -155,7 +154,6 @@ namespace FileManager.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Fax")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Logo")
@@ -179,7 +177,6 @@ namespace FileManager.Infrastructure.Migrations
                         .HasColumnType("character(1)");
 
                     b.Property<string>("Url")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

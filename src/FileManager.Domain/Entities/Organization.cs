@@ -18,9 +18,9 @@ public class Organization : BaseEntity, ISoftDelete
     public string Address { get; protected set; }
     public string Phone { get; protected set; }
     public string Email { get; protected set; }
-    public string Fax { get; protected set; }
-    public string Url { get; protected set; }
-    public string Description { get; protected set; }
+    public string? Fax { get; protected set; }
+    public string? Url { get; protected set; }
+    public string? Description { get; protected set; }
     public string? Logo { get; protected set; }
 
     public void Update(string orgName, string address, string phone, string email, string fax, string url,

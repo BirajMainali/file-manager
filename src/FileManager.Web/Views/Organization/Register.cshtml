@@ -1,0 +1,96 @@
+﻿@model FileManager.Web.ViewModels.OrganizationUserViewModel
+
+@{
+    ViewBag.Title = "Register Organization";
+    Layout = "_UnAuthorizedLayout";
+}
+
+<div class="text-center mb-4">
+    <a href="." class="navbar-brand navbar-brand-autodark">
+        <img src="~/UI/img/Icon/file-manager-icon.svg" height="36" alt="">
+    </a>
+</div>
+<div class="card d-flex">
+    <div class="card-header">
+        <div class="card-title"> Create Organization</div>
+    </div>
+    <form asp-controller="Organization" asp-action="Register" method="post">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="OrgName"></label>
+                        <input type="text" class="form-control" asp-for="OrgName" required="required">
+                        <span asp-validation-for="OrgName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Address"></label>
+                        <input type="text" class="form-control" asp-for="Address" required="required">
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Phone"></label>
+                        <input type="text" class="form-control" asp-for="Phone" required="required">
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Fax"></label>
+                        <input type="text" class="form-control" asp-for="Fax" required="required">
+                        <span asp-validation-for="Fax" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Url"></label>
+                        <input type="text" class="form-control" asp-for="Url" required="required">
+                        <span asp-validation-for="Url" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Gender"></label>
+                        <input type="text" class="form-control" asp-for="Gender" required="required">
+                        <span asp-validation-for="Gender" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input type="text" class="form-control" asp-for="Name" required="required">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input type="text" class="form-control" asp-for="Email" required="required">
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input type="password" class="form-control" asp-for="Password" required="required">
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="card-footer">
+            <input type="submit" class="btn btn-primary" value="Create organization User">
+        </div>
+    </form>
+</div>
