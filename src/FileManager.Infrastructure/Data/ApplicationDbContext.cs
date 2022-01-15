@@ -13,7 +13,7 @@ public class ApplicationDbContext : DbContext
         .Single(t => t.IsGenericMethod && t.Name == "SetGlobalQuery");
 
     private readonly IHttpContextAccessor _contextAccessor;
-    public DbSet<User> Users;
+    public DbSet<User>? Users;
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IHttpContextAccessor contextAccessor)
         : base(options)
@@ -72,7 +72,6 @@ public class ApplicationDbContext : DbContext
             entry.State = EntityState.Modified;
             entry.GetType().GetProperty("RecStatus")?.SetValue(entity, 'D');
         }
-
         BeforeSaveChanges();
         return base.SaveChanges();
     }
@@ -87,9 +86,9 @@ public class ApplicationDbContext : DbContext
             {
                 case EntityState.Added:
                     if (model.Entity is IRecordInfo recordInfo)
-                    {
+                    { 
                         var id = _contextAccessor.HttpContext?.User?.FindFirst("Id").Value;
-                        recordInfo.RecUser = Users.Find(id);
+                        recordInfo.RecUserId = Users.Find(id).Id;
                     }
 
                     break;

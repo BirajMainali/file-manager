@@ -1,0 +1,54 @@
+﻿@model System.Collections.Generic.List<FileManager.Domain.Entities.FileCategory>
+
+@{
+    ViewBag.Title = "File Categories";
+ 
+}
+
+<partial name="Toolbar/_CategoryToolbar"/>
+@if (!Model.Any())
+{
+    <h1 class="text-center">No data found..</h1>
+}else {
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <td>#</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Priority</td>
+            <td>Action</td>
+        </tr>
+        </thead>
+        <tbody>
+        @{
+            var sn = 1;
+            foreach (var categories in Model)
+            {
+                <tr>
+                    <td>@(sn++)</td>
+                    <td>@categories.Name</td>
+                    <td>@categories.Description</td>
+                    <td>@categories.Priority</td>
+                    <td>
+                        <div class="btn-group">
+                            <a asp-controller="FileCategory"
+                               asp-action="Edit"
+                               asp-route-id="@categories.Id"
+                               class="btn btn-primary btn-outline-danger">
+                                Edit
+                            </a>
+                            <a asp-controller="FileCategory"
+                               asp-action="Remove"
+                               asp-route-id="@categories.Id"
+                               class="btn btn-danger btn-outline-primary">
+                                Remove
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        </tbody>
+    </table>
+}

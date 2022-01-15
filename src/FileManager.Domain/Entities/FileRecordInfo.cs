@@ -32,7 +32,5 @@ public class FileRecordInfo : BaseEntity, ISoftDelete, IRecordInfo
     public long FileCategoryId { get; set; }
     public string Path { get; protected set; }
     public double Size { get; protected set; }
-
-    public virtual User RecUser { get; set; }
     public long RecUserId { get; set; }
 }

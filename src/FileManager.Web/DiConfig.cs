@@ -35,7 +35,7 @@ public static class DiConfig
         });
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(
-                configuration.GetConnectionString("DefaultConnection"), m => m.MigrationsAssembly("FileManager.Infrastructure")));
+                configuration.GetConnectionString("DefaultConnection")));
         return services;
     }
 }

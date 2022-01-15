@@ -19,9 +19,7 @@ public class FileCategoryService : IFileCategoryService
     }
     public async Task Create(FileCategoryDto dto)
     {
-
         using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
-
         var category = new FileCategory(dto.Name, dto.Description, dto.Organization, dto.Priority);
         await _fileCategoryRepository.CreateAsync(category);
         await _fileCategoryRepository.FlushAsync();

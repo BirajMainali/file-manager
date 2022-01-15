@@ -1,0 +1,38 @@
+﻿@model FileManager.Web.ViewModels.FileCategoryVm
+
+@{
+    ViewBag.Title = "Edit Category";
+    Layout = "_Layout";
+}
+
+<partial name="Toolbar/_CategoryToolbar"/>
+<form asp-controller="FileCategory" asp-action="Edit">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Create file category</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" type="text" class="form-control" placeholder="Category name"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label>
+                <input asp-for="Description" type="text" class="form-control" placeholder="Description"/>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Priority"></label>
+                <input asp-for="Priority" type="number" min="0" class="form-control" placeholder="Priority"/>
+                <span asp-validation-for="Priority" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="btn-group">
+                <a asp-controller="FileCategory" asp-action="Index" class="btn btn-secondary btn-outline-danger">Cancle</a>
+                <button type="submit" class="btn btn-primary btn-outline-danger">Save</button>
+            </div>
+        </div>
+    </div>
+</form>

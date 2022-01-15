@@ -8,8 +8,7 @@ public class FileCategory : BaseEntity, ISoftDelete, IRecordInfo
     public string? Description { get; protected set; }
     public virtual Organization Organization { get; protected set; }
     public long OrganizationId { get; set; }
-    public long? Priority { get; set; }
-    public virtual User RecUser { get; set; }
+    public long Priority { get; set; }
     public long RecUserId { get; set; }
 
 
